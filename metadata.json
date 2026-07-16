@@ -1,0 +1,6 @@
+{
+  "name": "Maga Flow",
+  "description": "World-class cyber-premium fintech mobile web-app with dynamic wallet tracking, smart daily limits, beautiful analytics, and premium AI insights.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
