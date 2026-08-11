@@ -13,7 +13,7 @@ Wave 1 is in progress. This branch intentionally replaces the old AI Studio/Maga
 | CP-02 Repository baseline | VERIFIED | GitHub remote, `main` baseline commit, archive branch and SmartWallet working branch recorded. |
 | CP-03 Existing UI inventory | VERIFIED | Legacy Maga Flow UI was inventoried and replaced only on the new branch; archive retains the original state. |
 | CP-04 Environment contract | IN PROGRESS | `.env.example` allows only browser-safe Supabase values. Preview/production variables still need Vercel setup. |
-| CP-05 Quality baseline | IN PROGRESS | Typecheck/build scripts and GitHub Actions workflow added. Local dependency installation is blocked by this Windows Node TLS error: `UNABLE_TO_VERIFY_LEAF_SIGNATURE`; no local build result is claimed. Remote GitHub Actions and Vercel remain the safe verification paths. |
+| CP-05 Quality baseline | VERIFIED | Typecheck/build scripts and GitHub Actions workflow added. Remote GitHub Actions run `31466432353` successfully installed dependencies, passed TypeScript and created a production build. Local Node TLS remains an environment-only issue. |
 
 ## Visible changes in this commit
 
@@ -28,4 +28,4 @@ Wave 1 is in progress. This branch intentionally replaces the old AI Studio/Maga
 
 ## Known gate
 
-The local machine initially had no project dependencies installed. Node package download is currently blocked by `UNABLE_TO_VERIFY_LEAF_SIGNATURE`. Until `npm run typecheck` and `npm run build` complete, this checkpoint remains `IN PROGRESS`; it is not described as verified. TLS verification was not disabled to work around this issue.
+The local machine initially had no project dependencies installed. Node package download is currently blocked by `UNABLE_TO_VERIFY_LEAF_SIGNATURE`; TLS verification was not disabled to work around this issue. This does not block the project: remote GitHub Actions run `31466432353` installed dependencies, passed `npm run typecheck` and passed `npm run build` successfully on 2026-08-11.
