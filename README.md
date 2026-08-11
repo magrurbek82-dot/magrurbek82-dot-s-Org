@@ -1,20 +1,31 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# SmartWallet
 
-# Run and deploy your AI Studio app
+SmartWallet — O'zbekiston foydalanuvchilari uchun uch tildagi, responsive web moliya boshqaruv mahsuloti.
 
-This contains everything you need to run your app locally.
+Bu branch (`web/smartwallet-v1`) eski Maga Flow kodidan alohida, noldan yaratilayotgan yangi web foundation hisoblanadi. Eski loyiha `archive/maga-flow-before-smartwallet-2026-08-11` branchida saqlangan.
 
-View your app in AI Studio: https://ai.studio/apps/0a822988-b338-4ee0-aeb9-8ba2d71ea90b
+## V1 yo'nalishi
 
-## Run Locally
+- responsive web: mobil, tablet va desktop;
+- UZ/RU/EN bir vaqtda;
+- light/dark rejim;
+- 5 asosiy yo'nalish: Bosh sahifa, Maga AI, yangi tranzaksiya, Tahlil va Menyu;
+- banksiz V1: hamyonlar va tranzaksiyalar qo'lda yuritiladi;
+- Maga AI faqat foydalanuvchi tasdiqlagan amallar orqali moliyaviy yozuvga ta'sir qiladi;
+- Supabase target: `qogbqyrbnwmpdzwqmlzx`.
 
-**Prerequisites:**  Node.js
+Native app, PWA install, APK/TestFlight va real bank integratsiyasi ushbu V1 scope'iga kirmaydi.
 
+## Ishga tushirish
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```bash
+npm install
+npm run dev
+```
+
+`VITE_SUPABASE_PUBLISHABLE_KEY` faqat browser-safe publishable key bo'lishi mumkin. Service-role key hech qachon frontend yoki Vercel public variable'ga kiritilmaydi.
+
+## Hujjatlar
+
+- [V1 mahsulot spetsifikatsiyasi](docs/PRODUCT_SPEC_V1.md)
+- [40 checkpointli reja](docs/PHASE_PLAN.md)
