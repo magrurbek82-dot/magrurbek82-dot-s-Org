@@ -17,6 +17,17 @@ Status qiymatlari:
 
 Boshlang'ich status: barcha checkpoint `NOT STARTED`. Mavjud kod borligi checkpoint o'tganini anglatmaydi; dalil bo'lmasa `VERIFIED` qo'yilmaydi.
 
+## Delivery wave xaritasi
+
+Bir wave bir nechta bog'liq phase'larni qamrab oladi. Wave faqat ichidagi barcha phase'lar release gate'dan o'tganda tugagan hisoblanadi.
+
+| Wave | Qamrovi | Natija |
+|---|---|---|
+| Wave 1 | Phase 1-4 | Xavfsiz foundation, fresh database/ledger, atomic money operations, auth/onboarding |
+| Wave 2 | Phase 5-6 | Responsive design system, app shell va core financial UI |
+| Wave 3 | Phase 7-8 | Menyu money modullari, reports va Maga AI/Maga Brain |
+| Wave 4 | Phase 9 | Full acceptance, staged cutover va rollback evidence |
+
 ## Qat'iy chegaralar
 
 - branch: `web/smartwallet-v1`;
@@ -340,4 +351,3 @@ Quyidagilar CP-40'dan keyingi alohida mahsulot qarori va acceptance talab qiladi
 - native Android/iOS;
 - maqolalar va reklama;
 - XP orqali paid entitlement mukofoti.
-

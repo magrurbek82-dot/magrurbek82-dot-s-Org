@@ -5,7 +5,16 @@ Updated: 2026-08-11
 
 ## Current result
 
-Wave 1 is complete. This branch intentionally replaces the old AI Studio/Maga Flow interface with a fresh SmartWallet web foundation. The old source is preserved at `archive/maga-flow-before-smartwallet-2026-08-11`.
+Wave 1 is in progress (25%). Wave 1 intentionally contains Phases 1-4 of the SmartWallet roadmap, not just Phase 1. This branch replaces the old AI Studio/Maga Flow interface with a fresh SmartWallet web foundation. The old source is preserved at `archive/maga-flow-before-smartwallet-2026-08-11`.
+
+## Wave 1 scope
+
+| Roadmap phase | Scope | Status |
+|---|---|---|
+| Phase 1 | Decisions, audit and safe foundation | VERIFIED |
+| Phase 2 | Fresh Supabase, wallets, append-only ledger and RLS | NOT STARTED |
+| Phase 3 | Atomic financial operations, recovery and rollback rehearsal | NOT STARTED |
+| Phase 4 | Auth, privacy, onboarding and persisted UZ/RU/EN profiles | NOT STARTED |
 
 | Checkpoint | Status | Evidence |
 |---|---|---|
