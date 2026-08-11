@@ -1,8 +1,8 @@
-# SmartWallet
+# SmartVault
 
-SmartWallet — O'zbekiston foydalanuvchilari uchun uch tildagi, responsive web moliya boshqaruv mahsuloti.
+SmartVault — O'zbekiston foydalanuvchilari uchun uch tildagi, responsive web moliya boshqaruv mahsuloti.
 
-Bu branch (`web/smartwallet-v1`) eski Maga Flow kodidan alohida, noldan yaratilayotgan yangi web foundation hisoblanadi. Eski loyiha `archive/maga-flow-before-smartwallet-2026-08-11` branchida saqlangan.
+Bu branch (`web/smartvault-v1`) eski Maga Flow kodidan alohida, noldan yaratilayotgan yangi web foundation hisoblanadi. Eski loyiha `archive/maga-flow-before-smartwallet-2026-08-11` branchida saqlangan.
 
 ## V1 yo'nalishi
 

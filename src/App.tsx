@@ -55,7 +55,7 @@ type Theme = 'light' | 'dark';
 
 function readTheme(): Theme {
   if (typeof window === 'undefined') return 'light';
-  const saved = window.localStorage.getItem('smartwallet.theme');
+  const saved = window.localStorage.getItem('smartvault.theme');
   if (saved === 'dark' || saved === 'light') return saved;
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
@@ -85,11 +85,11 @@ function pathForScreen(screen: Screen): string {
 
 function BrandMark({ compact = false }: { compact?: boolean }) {
   return (
-    <span aria-label="SmartWallet" className="inline-flex items-center gap-2 font-[var(--sw-font-display)] font-extrabold tracking-[-0.04em]">
+    <span aria-label="SmartVault" className="inline-flex items-center gap-2 font-[var(--sw-font-display)] font-extrabold tracking-[-0.04em]">
       <span className="sw-brand-gradient grid h-9 w-9 place-items-center rounded-[13px] shadow-[0_8px_18px_rgb(67_56_202_/_26%)]">
         <WalletCards size={19} strokeWidth={2.25} />
       </span>
-      {!compact && <span className="text-lg">SmartWallet</span>}
+      {!compact && <span className="text-lg">SmartVault</span>}
     </span>
   );
 }
@@ -258,7 +258,7 @@ function MenuScreen({ onProfile }: { onProfile: () => void }) {
   const { t } = useLocale();
   return (
     <div className="sw-page sw-page--with-mobile-nav">
-      <div className="sw-page-header"><div><p className="sw-eyebrow">SmartWallet</p><h1 className="sw-page-title mt-1">{t('menu')}</h1><p className="sw-page-description">{t('menuDescription')}</p></div><button type="button" className="sw-icon-button" onClick={onProfile} aria-label={t('profile')}><UserRound size={19} /></button></div>
+      <div className="sw-page-header"><div><p className="sw-eyebrow">SmartVault</p><h1 className="sw-page-title mt-1">{t('menu')}</h1><p className="sw-page-description">{t('menuDescription')}</p></div><button type="button" className="sw-icon-button" onClick={onProfile} aria-label={t('profile')}><UserRound size={19} /></button></div>
       <section className="mb-5"><UpgradeBanner /></section>
       <section className="sw-card sw-card--padded mb-5 flex flex-wrap items-center justify-between gap-4"><div><p className="sw-metric__label">{t('totalBalance')}</p><p className="sw-metric__value mt-1">0 UZS</p></div></section>
       <div className="grid gap-2">
@@ -285,7 +285,7 @@ function ProfileScreen({
   const profileItems = [['personalInfo', UserRound], ['planAndAi', Sparkles], ['currency', Landmark], ['notifications', Bell], ['privacy', LockKeyhole], ['help', CircleHelp], ['about', Settings2]] as const;
   return (
     <div className="sw-page sw-page--with-mobile-nav">
-      <div className="sw-page-header"><div><p className="sw-eyebrow">SmartWallet</p><h1 className="sw-page-title mt-1">{t('profile')}</h1></div></div>
+      <div className="sw-page-header"><div><p className="sw-eyebrow">SmartVault</p><h1 className="sw-page-title mt-1">{t('profile')}</h1></div></div>
       <section className="sw-card sw-card--padded mb-5 flex flex-wrap items-center gap-4"><span className="sw-brand-gradient grid h-16 w-16 place-items-center rounded-2xl text-xl font-bold">SW</span><div className="min-w-0 flex-1"><p className="break-all text-lg font-semibold">{email ?? '—'}</p><p className="mt-1 text-sm text-[var(--sw-text-secondary)]">{t('accountSettings')}</p></div></section>
       <section className="mb-5"><UpgradeBanner /></section>
       <ProfilePreferencesForm client={client} userId={userId} className="mb-5" onSaved={(preferences) => setTheme(resolveThemePreference(preferences.themePreference))} />
@@ -302,7 +302,7 @@ function TransactionDialog({ open, onClose }: { open: boolean; onClose: () => vo
   return (
     <div className="fixed inset-0 z-[var(--sw-z-modal)] grid place-items-end bg-[var(--sw-bg-overlay)] p-0 backdrop-blur-sm sm:place-items-center sm:p-6" role="presentation">
       <section className="w-full max-w-xl rounded-t-[var(--sw-radius-panel)] border border-[var(--sw-border-subtle)] bg-[var(--sw-bg-surface)] p-5 shadow-[var(--sw-shadow-floating)] sm:rounded-[var(--sw-radius-panel)]" role="dialog" aria-modal="true" aria-labelledby="new-transaction-title">
-        <div className="flex items-center justify-between gap-4"><div><p className="sw-eyebrow">SmartWallet</p><h2 id="new-transaction-title" className="mt-1">{t('addTransaction')}</h2></div><IconButton label={t('close')} onClick={onClose}><X size={20} /></IconButton></div>
+        <div className="flex items-center justify-between gap-4"><div><p className="sw-eyebrow">SmartVault</p><h2 id="new-transaction-title" className="mt-1">{t('addTransaction')}</h2></div><IconButton label={t('close')} onClick={onClose}><X size={20} /></IconButton></div>
         <div className="sw-segmented mt-6 w-full" role="tablist"><button type="button" className="sw-segmented__item" aria-selected={kind === 'income'} onClick={() => setKind('income')}><ArrowDownLeft className="mr-1 inline" size={14} />{t('income')}</button><button type="button" className="sw-segmented__item" aria-selected={kind === 'expense'} onClick={() => setKind('expense')}><ArrowUpRight className="mr-1 inline" size={14} />{t('expense')}</button><button type="button" className="sw-segmented__item" aria-selected={kind === 'transfer'} onClick={() => setKind('transfer')}><ArrowDownLeft className="mr-1 inline" size={14} />Transfer</button></div>
         <div className="mt-5 grid gap-4"><label className="sw-field"><span className="sw-label">{t('amount')}</span><input className="sw-input" inputMode="decimal" placeholder="0" /></label><label className="sw-field"><span className="sw-label">{t('selectWallet')}</span><select className="sw-select" defaultValue=""><option value="" disabled>{t('selectWallet')}</option></select></label><label className="sw-field"><span className="sw-label">{t('note')}</span><input className="sw-input" placeholder={t('note')} /></label></div>
         <div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end"><button type="button" className="sw-button sw-button--secondary" onClick={onClose}>{t('close')}</button><button type="button" className="sw-button sw-button--primary" disabled>{t('save')}</button></div>
@@ -334,7 +334,7 @@ function SmartWalletApp({
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-    window.localStorage.setItem('smartwallet.theme', theme);
+    window.localStorage.setItem('smartvault.theme', theme);
   }, [theme]);
 
   useEffect(() => {
@@ -459,7 +459,7 @@ function AuthenticatedWorkspace({
 
 function SmartWalletRouter() {
   const [hasCompletedPublicLanguageStep, setHasCompletedPublicLanguageStep] = useState(() => (
-    window.localStorage.getItem('smartwallet.public-language-complete') === 'true'
+    window.localStorage.getItem('smartvault.public-language-complete') === 'true'
   ));
   const [path, setPath] = useState(() => window.location.pathname);
   const client = useMemo(() => {
@@ -501,7 +501,7 @@ function SmartWalletRouter() {
     return (
       <div className="sw-container py-8">
         <PublicLanguageStart onContinue={() => {
-          window.localStorage.setItem('smartwallet.public-language-complete', 'true');
+          window.localStorage.setItem('smartvault.public-language-complete', 'true');
           setHasCompletedPublicLanguageStep(true);
         }} />
       </div>

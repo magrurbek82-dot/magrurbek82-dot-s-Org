@@ -11,7 +11,7 @@ const LocaleContext = createContext<LocaleContextValue | null>(null);
 
 function readLocale(): Locale {
   if (typeof window === 'undefined') return 'uz';
-  const stored = window.localStorage.getItem('smartwallet.locale');
+  const stored = window.localStorage.getItem('smartvault.locale');
   return stored === 'ru' || stored === 'en' ? stored : 'uz';
 }
 
@@ -19,7 +19,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(readLocale);
 
   useEffect(() => {
-    window.localStorage.setItem('smartwallet.locale', locale);
+    window.localStorage.setItem('smartvault.locale', locale);
     document.documentElement.lang = locale;
   }, [locale]);
 

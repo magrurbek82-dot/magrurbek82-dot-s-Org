@@ -1,6 +1,6 @@
 import { createClient, type AuthChangeEvent, type Session, type SupabaseClient, type User } from '@supabase/supabase-js';
 
-const AUTH_STORAGE_KEY = 'smartwallet.auth.v1';
+const AUTH_STORAGE_KEY = 'smartvault.auth.v1';
 
 export type SupabaseBrowserConfig = {
   url: string;
@@ -144,7 +144,7 @@ export function getSupabaseBrowserClient(): SupabaseBrowserClient | null {
       storageKey: AUTH_STORAGE_KEY,
     },
     global: {
-      headers: { 'X-Client-Info': 'smartwallet-web' },
+      headers: { 'X-Client-Info': 'smartvault-web' },
     },
   });
 

@@ -151,7 +151,7 @@ export function AuthScreen({
   if (mode === 'email-sent') {
     return (
       <section className={`sw-card sw-card--padded mx-auto w-full max-w-md ${className}`} aria-live="polite">
-        <p className="sw-eyebrow">SmartWallet</p>
+        <p className="sw-eyebrow">SmartVault</p>
         <h1 className="sw-page-title mt-1">{title}</h1>
         <p className="mt-2 text-sm text-[var(--sw-text-secondary)]">{notice ?? description}</p>
         <button type="button" className="sw-button sw-button--primary mt-6 w-full" onClick={() => switchMode('sign-in')}>
@@ -173,7 +173,7 @@ export function AuthScreen({
 
   return (
     <section className={`sw-card sw-card--padded mx-auto w-full max-w-md ${className}`} aria-busy={submitting}>
-      <p className="sw-eyebrow">SmartWallet</p>
+      <p className="sw-eyebrow">SmartVault</p>
       <h1 className="sw-page-title mt-1">{title}</h1>
       <p className="mt-2 text-sm text-[var(--sw-text-secondary)]">{description}</p>
 

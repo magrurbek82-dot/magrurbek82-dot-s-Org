@@ -20,7 +20,7 @@ export function PublicLanguageStart({ onContinue, className = '' }: PublicLangua
 
   return (
     <section className={`sw-card sw-card--padded mx-auto w-full max-w-md ${className}`} aria-labelledby="language-start-title">
-      <p className="sw-eyebrow">SmartWallet</p>
+      <p className="sw-eyebrow">SmartVault</p>
       <h1 id="language-start-title" className="sw-page-title mt-1">{t('onboardingStepLanguageTitle')}</h1>
       <p className="mt-2 text-sm text-[var(--sw-text-secondary)]">{t('onboardingStepLanguageDescription')}</p>
 
