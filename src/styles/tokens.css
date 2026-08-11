@@ -1,0 +1,337 @@
+/*
+ * SmartWallet visual foundation
+ *
+ * A restrained, high-contrast financial palette. Indigo carries product
+ * actions, cyan communicates positive movement and intelligence, and coral
+ * is reserved for expenses and destructive states. These tokens are semantic:
+ * components should consume the role, never a raw palette value.
+ */
+
+@theme inline {
+  --font-sans: var(--sw-font-sans);
+  --font-display: var(--sw-font-display);
+  --font-mono: var(--sw-font-mono);
+
+  --color-finance-canvas: var(--sw-bg-canvas);
+  --color-finance-subtle: var(--sw-bg-subtle);
+  --color-finance-surface: var(--sw-bg-surface);
+  --color-finance-elevated: var(--sw-bg-elevated);
+  --color-finance-ink: var(--sw-text-primary);
+  --color-finance-muted: var(--sw-text-secondary);
+  --color-finance-soft: var(--sw-text-tertiary);
+  --color-finance-border: var(--sw-border-subtle);
+  --color-finance-border-strong: var(--sw-border-strong);
+  --color-finance-indigo: var(--sw-accent-indigo);
+  --color-finance-cyan: var(--sw-accent-cyan);
+  --color-finance-coral: var(--sw-accent-coral);
+  --color-finance-income: var(--sw-income);
+  --color-finance-expense: var(--sw-expense);
+
+  --radius-card: var(--sw-radius-card);
+  --radius-control: var(--sw-radius-control);
+  --shadow-card: var(--sw-shadow-card);
+  --shadow-floating: var(--sw-shadow-floating);
+}
+
+:root {
+  color-scheme: light;
+
+  /* Font stacks remain fast and platform-native until a licensed webfont loads. */
+  --sw-font-sans: "Inter Variable", Inter, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --sw-font-display: "Manrope Variable", Manrope, "Inter Variable", Inter, ui-sans-serif,
+    system-ui, sans-serif;
+  --sw-font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  /* Type scale. Fluid headings keep hierarchy without a phone-frame layout. */
+  --sw-text-xs: 0.75rem;
+  --sw-text-sm: 0.875rem;
+  --sw-text-md: 1rem;
+  --sw-text-lg: 1.125rem;
+  --sw-text-xl: 1.25rem;
+  --sw-text-2xl: clamp(1.5rem, 1.34rem + 0.78vw, 2rem);
+  --sw-text-3xl: clamp(1.875rem, 1.55rem + 1.55vw, 2.875rem);
+  --sw-text-display: clamp(2.25rem, 1.72rem + 2.6vw, 4.25rem);
+  --sw-leading-tight: 1.12;
+  --sw-leading-title: 1.22;
+  --sw-leading-body: 1.58;
+  --sw-tracking-tight: -0.025em;
+  --sw-tracking-label: 0.035em;
+
+  /* Four-point spacing system. */
+  --sw-space-0: 0;
+  --sw-space-1: 0.25rem;
+  --sw-space-2: 0.5rem;
+  --sw-space-3: 0.75rem;
+  --sw-space-4: 1rem;
+  --sw-space-5: 1.25rem;
+  --sw-space-6: 1.5rem;
+  --sw-space-7: 1.75rem;
+  --sw-space-8: 2rem;
+  --sw-space-10: 2.5rem;
+  --sw-space-12: 3rem;
+  --sw-space-16: 4rem;
+  --sw-space-20: 5rem;
+  --sw-space-24: 6rem;
+
+  --sw-radius-xs: 0.375rem;
+  --sw-radius-sm: 0.625rem;
+  --sw-radius-control: 0.875rem;
+  --sw-radius-card: 1.125rem;
+  --sw-radius-panel: 1.5rem;
+  --sw-radius-pill: 999px;
+
+  --sw-control-sm: 2.25rem;
+  --sw-control-md: 2.75rem;
+  --sw-control-lg: 3rem;
+  --sw-icon-sm: 1rem;
+  --sw-icon-md: 1.25rem;
+  --sw-icon-lg: 1.5rem;
+
+  --sw-page-gutter: 1rem;
+  --sw-page-block: 1.5rem;
+  --sw-container-content: 76rem;
+  --sw-container-wide: 90rem;
+  --sw-sidebar-width: 16.5rem;
+  --sw-topbar-height: 4.5rem;
+  --sw-mobile-nav-height: 4.25rem;
+
+  /* Motion is short and functional; finance values should feel stable. */
+  --sw-duration-fast: 120ms;
+  --sw-duration-base: 180ms;
+  --sw-duration-slow: 280ms;
+  --sw-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --sw-ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --sw-z-base: 0;
+  --sw-z-sticky: 20;
+  --sw-z-nav: 40;
+  --sw-z-overlay: 60;
+  --sw-z-modal: 80;
+  --sw-z-toast: 100;
+
+  /* Light theme: cool neutral surfaces with accessible, non-neon accents. */
+  --sw-bg-canvas: #f4f7fb;
+  --sw-bg-subtle: #edf2f8;
+  --sw-bg-surface: #ffffff;
+  --sw-bg-elevated: #fbfdff;
+  --sw-bg-inverse: #101828;
+  --sw-bg-overlay: rgb(15 23 42 / 62%);
+
+  --sw-text-primary: #101828;
+  --sw-text-secondary: #475467;
+  --sw-text-tertiary: #667085;
+  --sw-text-inverse: #ffffff;
+  --sw-text-disabled: #98a2b3;
+
+  --sw-border-subtle: #d9e1ec;
+  --sw-border-strong: #b8c3d2;
+  --sw-divider: #e5eaf1;
+  --sw-focus: #4f46e5;
+  --sw-focus-ring: rgb(79 70 229 / 28%);
+
+  --sw-action-primary: #4338ca;
+  --sw-action-primary-hover: #3730a3;
+  --sw-action-primary-active: #312e81;
+  --sw-action-primary-text: #ffffff;
+  --sw-action-secondary: #ffffff;
+  --sw-action-secondary-hover: #f3f5fa;
+  --sw-action-secondary-text: #344054;
+
+  --sw-accent-indigo: #4f46e5;
+  --sw-accent-indigo-strong: #3730a3;
+  --sw-accent-indigo-soft: #eef2ff;
+  --sw-accent-cyan: #0e7490;
+  --sw-accent-cyan-strong: #155e75;
+  --sw-accent-cyan-soft: #cffafe;
+  --sw-accent-coral: #b4234d;
+  --sw-accent-coral-strong: #8f1538;
+  --sw-accent-coral-soft: #fff1f3;
+
+  --sw-income: #067647;
+  --sw-income-soft: #ecfdf3;
+  --sw-expense: #b4234d;
+  --sw-expense-soft: #fff1f3;
+  --sw-warning: #b54708;
+  --sw-warning-soft: #fffaeb;
+  --sw-info: #175cd3;
+  --sw-info-soft: #eff8ff;
+  --sw-danger: #b42318;
+  --sw-danger-soft: #fef3f2;
+
+  /* Chart roles are color-blind-conscious and always paired with labels/markers. */
+  --sw-chart-income: #0e7490;
+  --sw-chart-expense: #c0264f;
+  --sw-chart-balance: #4f46e5;
+  --sw-chart-1: #4f46e5;
+  --sw-chart-2: #0e7490;
+  --sw-chart-3: #c0264f;
+  --sw-chart-4: #7c3aed;
+  --sw-chart-5: #b54708;
+  --sw-chart-6: #175cd3;
+  --sw-chart-7: #067647;
+  --sw-chart-grid: #dce3ed;
+  --sw-chart-axis: #667085;
+
+  --sw-shadow-card: 0 1px 2px rgb(16 24 40 / 4%), 0 8px 24px rgb(16 24 40 / 7%);
+  --sw-shadow-card-hover: 0 2px 4px rgb(16 24 40 / 5%),
+    0 16px 36px rgb(16 24 40 / 10%);
+  --sw-shadow-floating: 0 18px 48px rgb(16 24 40 / 16%);
+  --sw-shadow-focus: 0 0 0 3px var(--sw-focus-ring);
+
+  --sw-gradient-brand: linear-gradient(135deg, #4338ca 0%, #4f46e5 52%, #0e7490 100%);
+  --sw-gradient-canvas: radial-gradient(circle at 84% -8%, rgb(79 70 229 / 10%), transparent 30%),
+    radial-gradient(circle at 8% 16%, rgb(14 116 144 / 8%), transparent 25%);
+}
+
+:root[data-theme="dark"],
+.dark {
+  color-scheme: dark;
+  --sw-bg-canvas: #090d18;
+  --sw-bg-subtle: #0d1422;
+  --sw-bg-surface: #111a2a;
+  --sw-bg-elevated: #172236;
+  --sw-bg-inverse: #f8fafc;
+  --sw-bg-overlay: rgb(2 6 23 / 76%);
+
+  --sw-text-primary: #f8fafc;
+  --sw-text-secondary: #cbd5e1;
+  --sw-text-tertiary: #94a3b8;
+  --sw-text-inverse: #101828;
+  --sw-text-disabled: #64748b;
+
+  --sw-border-subtle: #29364a;
+  --sw-border-strong: #41516a;
+  --sw-divider: #202c3e;
+  --sw-focus: #a5b4fc;
+  --sw-focus-ring: rgb(129 140 248 / 34%);
+
+  --sw-action-primary: #4f46e5;
+  --sw-action-primary-hover: #6366f1;
+  --sw-action-primary-active: #4338ca;
+  --sw-action-primary-text: #ffffff;
+  --sw-action-secondary: #172236;
+  --sw-action-secondary-hover: #202d44;
+  --sw-action-secondary-text: #f1f5f9;
+
+  --sw-accent-indigo: #a5b4fc;
+  --sw-accent-indigo-strong: #c7d2fe;
+  --sw-accent-indigo-soft: #262753;
+  --sw-accent-cyan: #67e8f9;
+  --sw-accent-cyan-strong: #a5f3fc;
+  --sw-accent-cyan-soft: #12323f;
+  --sw-accent-coral: #fda4af;
+  --sw-accent-coral-strong: #fecdd3;
+  --sw-accent-coral-soft: #421c2b;
+
+  --sw-income: #5ee9b5;
+  --sw-income-soft: #13362d;
+  --sw-expense: #fda4af;
+  --sw-expense-soft: #421c2b;
+  --sw-warning: #fdb022;
+  --sw-warning-soft: #3a2a13;
+  --sw-info: #84adff;
+  --sw-info-soft: #172b4f;
+  --sw-danger: #fda29b;
+  --sw-danger-soft: #431c1c;
+
+  --sw-chart-income: #22d3ee;
+  --sw-chart-expense: #fb7185;
+  --sw-chart-balance: #a5b4fc;
+  --sw-chart-1: #a5b4fc;
+  --sw-chart-2: #22d3ee;
+  --sw-chart-3: #fb7185;
+  --sw-chart-4: #c4b5fd;
+  --sw-chart-5: #fbbf24;
+  --sw-chart-6: #60a5fa;
+  --sw-chart-7: #5ee9b5;
+  --sw-chart-grid: #29364a;
+  --sw-chart-axis: #94a3b8;
+
+  --sw-shadow-card: 0 1px 2px rgb(0 0 0 / 24%), 0 12px 28px rgb(0 0 0 / 24%);
+  --sw-shadow-card-hover: 0 2px 4px rgb(0 0 0 / 30%), 0 18px 42px rgb(0 0 0 / 34%);
+  --sw-shadow-floating: 0 22px 58px rgb(0 0 0 / 48%);
+  --sw-gradient-brand: linear-gradient(135deg, #4f46e5 0%, #6366f1 50%, #0891b2 100%);
+  --sw-gradient-canvas: radial-gradient(circle at 84% -8%, rgb(99 102 241 / 16%), transparent 32%),
+    radial-gradient(circle at 8% 16%, rgb(34 211 238 / 10%), transparent 25%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --sw-bg-canvas: #090d18;
+    --sw-bg-subtle: #0d1422;
+    --sw-bg-surface: #111a2a;
+    --sw-bg-elevated: #172236;
+    --sw-bg-inverse: #f8fafc;
+    --sw-bg-overlay: rgb(2 6 23 / 76%);
+    --sw-text-primary: #f8fafc;
+    --sw-text-secondary: #cbd5e1;
+    --sw-text-tertiary: #94a3b8;
+    --sw-text-inverse: #101828;
+    --sw-text-disabled: #64748b;
+    --sw-border-subtle: #29364a;
+    --sw-border-strong: #41516a;
+    --sw-divider: #202c3e;
+    --sw-focus: #a5b4fc;
+    --sw-focus-ring: rgb(129 140 248 / 34%);
+    --sw-action-primary: #4f46e5;
+    --sw-action-primary-hover: #6366f1;
+    --sw-action-primary-active: #4338ca;
+    --sw-action-primary-text: #ffffff;
+    --sw-action-secondary: #172236;
+    --sw-action-secondary-hover: #202d44;
+    --sw-action-secondary-text: #f1f5f9;
+    --sw-accent-indigo: #a5b4fc;
+    --sw-accent-indigo-strong: #c7d2fe;
+    --sw-accent-indigo-soft: #262753;
+    --sw-accent-cyan: #67e8f9;
+    --sw-accent-cyan-strong: #a5f3fc;
+    --sw-accent-cyan-soft: #12323f;
+    --sw-accent-coral: #fda4af;
+    --sw-accent-coral-strong: #fecdd3;
+    --sw-accent-coral-soft: #421c2b;
+    --sw-income: #5ee9b5;
+    --sw-income-soft: #13362d;
+    --sw-expense: #fda4af;
+    --sw-expense-soft: #421c2b;
+    --sw-warning: #fdb022;
+    --sw-warning-soft: #3a2a13;
+    --sw-info: #84adff;
+    --sw-info-soft: #172b4f;
+    --sw-danger: #fda29b;
+    --sw-danger-soft: #431c1c;
+    --sw-chart-income: #22d3ee;
+    --sw-chart-expense: #fb7185;
+    --sw-chart-balance: #a5b4fc;
+    --sw-chart-1: #a5b4fc;
+    --sw-chart-2: #22d3ee;
+    --sw-chart-3: #fb7185;
+    --sw-chart-4: #c4b5fd;
+    --sw-chart-5: #fbbf24;
+    --sw-chart-6: #60a5fa;
+    --sw-chart-7: #5ee9b5;
+    --sw-chart-grid: #29364a;
+    --sw-chart-axis: #94a3b8;
+    --sw-shadow-card: 0 1px 2px rgb(0 0 0 / 24%), 0 12px 28px rgb(0 0 0 / 24%);
+    --sw-shadow-card-hover: 0 2px 4px rgb(0 0 0 / 30%), 0 18px 42px rgb(0 0 0 / 34%);
+    --sw-shadow-floating: 0 22px 58px rgb(0 0 0 / 48%);
+    --sw-gradient-brand: linear-gradient(135deg, #4f46e5 0%, #6366f1 50%, #0891b2 100%);
+    --sw-gradient-canvas: radial-gradient(circle at 84% -8%, rgb(99 102 241 / 16%), transparent 32%),
+      radial-gradient(circle at 8% 16%, rgb(34 211 238 / 10%), transparent 25%);
+  }
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --sw-page-gutter: 1.5rem;
+    --sw-page-block: 2rem;
+  }
+}
+
+@media (min-width: 75rem) {
+  :root {
+    --sw-page-gutter: 2rem;
+    --sw-page-block: 2.5rem;
+  }
+}
