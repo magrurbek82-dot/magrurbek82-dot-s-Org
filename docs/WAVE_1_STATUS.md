@@ -45,7 +45,7 @@ Wave 1 implementation is complete in source and the fresh SmartWallet database. 
 - The Phase 2 structural/RLS test was run in a rollback-only transaction and passed after migration apply.
 - Phase 3 was first compiled inside `BEGIN ... ROLLBACK`, then applied only after that probe passed. It was never retried blindly after a parser error.
 - Supabase reports five intentional public `SECURITY DEFINER` financial RPCs. They are the narrow write boundary: each requires the signed-in user through `auth.uid()`, uses a fixed search path, and browser roles cannot directly write ledger/audit/idempotency tables. This warning is reviewed, not ignored.
-- A real two-user RLS operation test still requires two disposable Auth users. The test SQL is prepared in `supabase/tests/phase3_finance_operations.sql`; it is not falsely marked as completed without those identities.
+- A real two-user RLS operation test passed in a rollback-only transaction. Two temporary Auth users were created inside that transaction; user B could not read, edit or post an expense to user A's wallet. The users and wallet were rolled back and do not remain in the target database.
 
 ## Local validation note
 

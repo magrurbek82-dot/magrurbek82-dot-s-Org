@@ -34,4 +34,4 @@ The Supabase advisor reports five public `SECURITY DEFINER` functions. These are
 
 The database is fresh, so the advisor may identify newly created indexes as unused. They are retained because they support user ownership and currency foreign keys as data grows.
 
-The last non-destructive operational check still to perform is the prepared two-user RLS scenario. It requires two disposable Supabase Auth IDs and is intentionally not claimed as executed without real identities.
+The two-user RLS scenario passed in a rollback-only target transaction. It created two disposable Auth users and one wallet only for the transaction; user B could not read, update or create an expense against user A's wallet. The transaction rolled back, so no test users or test money remain in the database.
