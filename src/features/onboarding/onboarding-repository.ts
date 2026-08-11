@@ -20,6 +20,7 @@ import {
   type OnboardingCompletion,
   type OnboardingDraft,
 } from './model';
+import type { Locale } from '../../i18n/translations';
 
 export type OnboardingLoadResult = {
   draft: OnboardingDraft;
@@ -85,12 +86,15 @@ async function loadExponents(client: SupabaseBrowserClient, draft: OnboardingDra
 export function createSupabaseOnboardingRepository(
   client: SupabaseBrowserClient,
   userId: string,
+  options: { initialLocale?: Locale } = {},
 ): OnboardingRepository {
   return {
     async load(): Promise<OnboardingLoadResult> {
       const profile = await getProfile(client, userId);
       const profileDraft = parseOnboardingDraft(profile?.onboarding_draft);
-      const fallback = profile ? profilePreferencesToDraft(preferencesFromProfile(profile)) : createDefaultOnboardingDraft();
+      const fallback = profile
+        ? profilePreferencesToDraft(preferencesFromProfile(profile))
+        : createDefaultOnboardingDraft({ locale: options.initialLocale ?? 'uz' });
       const draft = mergeProfilePreferences(profileDraft ?? fallback, profile);
 
       return {

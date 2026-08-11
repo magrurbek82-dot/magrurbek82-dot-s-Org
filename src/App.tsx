@@ -34,8 +34,10 @@ import {
   signOut,
 } from './features/auth';
 import {
+  createDefaultOnboardingDraft,
   OnboardingFlow,
   ProfilePreferencesForm,
+  PublicLanguageStart,
   createSupabaseOnboardingRepository,
 } from './features/onboarding';
 import { getProfile } from './lib/profile-service';
@@ -392,8 +394,11 @@ function AuthenticatedWorkspace({
   userId: string;
   email: string | undefined;
 }) {
-  const { setLocale, t } = useLocale();
-  const repository = useMemo(() => createSupabaseOnboardingRepository(client, userId), [client, userId]);
+  const { locale, setLocale, t } = useLocale();
+  const repository = useMemo(
+    () => createSupabaseOnboardingRepository(client, userId, { initialLocale: locale }),
+    [client, locale, userId],
+  );
   const [status, setStatus] = useState<'loading' | 'not_started' | 'in_progress' | 'completed' | 'error'>('loading');
 
   const refreshOnboarding = useCallback(async () => {
@@ -401,6 +406,16 @@ function AuthenticatedWorkspace({
     try {
       const loaded = await repository.load();
       setLocale(loaded.draft.locale);
+      if (loaded.status === 'not_started') {
+        const completion = await repository.complete(createDefaultOnboardingDraft({
+          ...loaded.draft,
+          locale,
+          step: 3,
+        }));
+        setLocale(completion.preferences.locale);
+        setStatus('completed');
+        return;
+      }
       setStatus(loaded.status);
     } catch {
       setStatus('error');
@@ -432,7 +447,7 @@ function AuthenticatedWorkspace({
           onComplete={(completion) => {
             setLocale(completion.preferences.locale);
             setStatus('completed');
-            window.history.replaceState({}, '', '/app/maga-ai');
+            window.history.replaceState({}, '', '/app/home');
           }}
         />
       </div>
@@ -443,6 +458,9 @@ function AuthenticatedWorkspace({
 }
 
 function SmartWalletRouter() {
+  const [hasCompletedPublicLanguageStep, setHasCompletedPublicLanguageStep] = useState(() => (
+    window.localStorage.getItem('smartwallet.public-language-complete') === 'true'
+  ));
   const [path, setPath] = useState(() => window.location.pathname);
   const client = useMemo(() => {
     try {
@@ -477,6 +495,17 @@ function SmartWalletRouter() {
 
   if (path === '/auth/recover' && client) {
     return <div className="sw-container py-8"><AuthScreen client={client} initialMode="new-password" onPasswordUpdated={() => navigate(DEFAULT_AUTH_RETURN_TO, true)} /></div>;
+  }
+
+  if (!hasCompletedPublicLanguageStep) {
+    return (
+      <div className="sw-container py-8">
+        <PublicLanguageStart onContinue={() => {
+          window.localStorage.setItem('smartwallet.public-language-complete', 'true');
+          setHasCompletedPublicLanguageStep(true);
+        }} />
+      </div>
+    );
   }
 
   const returnTo = path.startsWith('/app') ? safeReturnTo(path) : DEFAULT_AUTH_RETURN_TO;

@@ -7,6 +7,7 @@ import {
   registerWithEmail,
   requestPasswordReset,
   signInWithEmail,
+  signInWithGoogle,
 } from './auth-service';
 
 export type AuthScreenMode = 'sign-in' | 'register' | 'reset-request' | 'new-password' | 'email-sent';
@@ -26,6 +27,9 @@ function isEmail(value: string): boolean {
 
 function getErrorMessage(error: unknown, invalidCredentials: string, generic: string): string {
   const message = normalizeAuthError(error);
+  if (/email not confirmed/i.test(message)) return 'EMAIL_NOT_CONFIRMED';
+  if (/email rate limit|over_email_send_rate_limit|only request this after/i.test(message)) return 'EMAIL_RATE_LIMITED';
+  if (/provider is not enabled|unsupported provider|google/i.test(message)) return 'GOOGLE_UNAVAILABLE';
   return /invalid login credentials|invalid credentials/i.test(message) ? invalidCredentials : (message || generic);
 }
 
@@ -82,14 +86,14 @@ export function AuthScreen({
     try {
       if (mode === 'sign-in') {
         await signInWithEmail(client, { email, password });
-        void Promise.resolve(onAuthenticated?.()).catch(() => undefined);
+        await onAuthenticated?.();
       } else if (mode === 'register') {
         const result = await registerWithEmail(client, { email, password, returnTo });
         if (result.emailConfirmationRequired) {
           setMode('email-sent');
           setNotice(t('verificationSent'));
         } else {
-          void Promise.resolve(onAuthenticated?.()).catch(() => undefined);
+          await onAuthenticated?.();
         }
       } else if (mode === 'reset-request') {
         await requestPasswordReset(client, email, returnTo);
@@ -98,11 +102,33 @@ export function AuthScreen({
       } else if (mode === 'new-password') {
         await completePasswordReset(client, password);
         setNotice(t('passwordUpdated'));
-        void Promise.resolve(onPasswordUpdated?.()).catch(() => undefined);
+        await onPasswordUpdated?.();
       }
     } catch (submitError) {
-      setError(getErrorMessage(submitError, t('invalidCredentials'), t('authErrorGeneric')));
+      const message = getErrorMessage(submitError, t('invalidCredentials'), t('authErrorGeneric'));
+      setError(
+        message === 'EMAIL_NOT_CONFIRMED'
+          ? t('emailNotConfirmed')
+          : message === 'EMAIL_RATE_LIMITED'
+            ? t('emailRateLimited')
+            : message === 'GOOGLE_UNAVAILABLE'
+              ? t('googleUnavailable')
+              : message,
+      );
     } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function continueWithGoogle(): Promise<void> {
+    setError(null);
+    setNotice(null);
+    setSubmitting(true);
+    try {
+      await signInWithGoogle(client, { returnTo });
+    } catch (submitError) {
+      const message = getErrorMessage(submitError, t('invalidCredentials'), t('authErrorGeneric'));
+      setError(message === 'GOOGLE_UNAVAILABLE' ? t('googleUnavailable') : message);
       setSubmitting(false);
     }
   }
@@ -151,7 +177,26 @@ export function AuthScreen({
       <h1 className="sw-page-title mt-1">{title}</h1>
       <p className="mt-2 text-sm text-[var(--sw-text-secondary)]">{description}</p>
 
-      <form className="mt-6 grid gap-4" onSubmit={(event) => void submit(event)} noValidate>
+      {mode === 'sign-in' || mode === 'register' ? (
+        <>
+          <button
+            type="button"
+            className="sw-button sw-button--secondary mt-6 w-full"
+            disabled={submitting}
+            onClick={() => void continueWithGoogle()}
+          >
+            <span aria-hidden="true" className="mr-2 inline-grid h-5 w-5 place-items-center rounded-full bg-white text-xs font-bold text-[#4285F4] shadow-sm">G</span>
+            {t('continueWithGoogle')}
+          </button>
+          <div className="my-5 flex items-center gap-3 text-xs text-[var(--sw-text-secondary)]" aria-hidden="true">
+            <span className="h-px flex-1 bg-[var(--sw-border)]" />
+            <span>{t('orContinueWithEmail')}</span>
+            <span className="h-px flex-1 bg-[var(--sw-border)]" />
+          </div>
+        </>
+      ) : null}
+
+      <form className={`${mode === 'sign-in' || mode === 'register' ? '' : 'mt-6'} grid gap-4`} onSubmit={(event) => void submit(event)} noValidate>
         {error ? <p className="sw-status sw-status--danger" role="alert">{error}</p> : null}
         {notice ? <p className="sw-status sw-status--success" role="status">{notice}</p> : null}
 

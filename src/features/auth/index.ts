@@ -8,6 +8,7 @@ export {
   requestPasswordReset,
   safeReturnTo,
   signInWithEmail,
+  signInWithGoogle,
   signOut,
   type AuthCallbackResult,
   type AuthResult,

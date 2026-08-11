@@ -6,7 +6,9 @@ import {
   toSupabaseBrowserAuthError,
 } from '../../lib/supabase-browser';
 
-export const DEFAULT_AUTH_RETURN_TO = '/app/maga-ai';
+/** Every successful first sign-in lands on the real dashboard, not on an
+ * intermediate AI or setup screen. */
+export const DEFAULT_AUTH_RETURN_TO = '/app/home';
 
 export type AuthCallbackResult = {
   kind: 'signed_in' | 'password_recovery' | 'error' | 'none';
@@ -95,6 +97,25 @@ export async function registerWithEmail(
     session: data.session,
     emailConfirmationRequired: !data.session,
   };
+}
+
+/**
+ * Starts the browser-based Google OAuth flow through Supabase. The SDK owns
+ * the PKCE verifier and redirects the browser; no provider secret reaches the
+ * web application.
+ */
+export async function signInWithGoogle(
+  client: SupabaseBrowserClient,
+  input: { returnTo?: string } = {},
+): Promise<void> {
+  const { error } = await client.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: createAuthCallbackUrl(input.returnTo),
+    },
+  });
+
+  if (error) throw toSupabaseBrowserAuthError(error, 'Google sign-in could not be started.');
 }
 
 export async function requestPasswordReset(
