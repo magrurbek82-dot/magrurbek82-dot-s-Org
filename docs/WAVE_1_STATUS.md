@@ -9,7 +9,7 @@ Wave 1 is in progress. This branch intentionally replaces the old AI Studio/Maga
 
 | Checkpoint | Status | Evidence |
 |---|---|---|
-| CP-01 Canonical scope freeze | IN PROGRESS | `PRODUCT_SPEC_V1.md` drafted; user review remains before it can be VERIFIED. |
+| CP-01 Canonical scope freeze | VERIFIED | User-confirmed decisions recorded: SmartWallet, Maga AI/Maga Brain, responsive web only, three languages, no PWA/native and bank-free V1. |
 | CP-02 Repository baseline | VERIFIED | GitHub remote, `main` baseline commit, archive branch and SmartWallet working branch recorded. |
 | CP-03 Existing UI inventory | VERIFIED | Legacy Maga Flow UI was inventoried and replaced only on the new branch; archive retains the original state. |
 | CP-04 Environment contract | IN PROGRESS | `.env.example` allows only browser-safe Supabase values. Preview/production variables still need Vercel setup. |
